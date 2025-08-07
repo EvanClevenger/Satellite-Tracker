@@ -17,7 +17,7 @@ function App() {
       },
       (err) => console.log(`Geolocation error: ${err}`)
     );
-  }, []);
+  }, []); // not really going to need this but I have it here anyway just to remeber how to get current location
 
   const customerIcon = L.icon({
     iconUrl: "../satellite2.png",
@@ -42,7 +42,7 @@ function App() {
             </Marker>
           </MapContainer>
           <SatelliteList />
-        </>
+        </> //fragement, used to return multiple elements
       ) : (
         <Spinner />
       )}

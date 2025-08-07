@@ -1,9 +1,19 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const axios = require("axios");
 
 const app = express();
 app.use(cors());
+
+//fetching data
+app.get("/api/satelliteData", async (req, res) => {
+  try {
+    const response = await axios.get();
+  } catch (error) {
+    console.log(`Issue with fetch: ${error}`);
+  }
+});
 
 //loads .env
 dotenv.config();
