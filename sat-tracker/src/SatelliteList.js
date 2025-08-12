@@ -1,13 +1,16 @@
 import { point } from "leaflet";
 import { useState, useEffect } from "react";
+import "./App.css";
 
 export default function SatelliteList() {
   const [satellites, setSatellites] = useState([]);
 
   const [hoverStyle, setHoverStyle] = useState(false);
 
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
-    fetch("http://localhost:8001/api/satellites")
+    fetch("/api/satellites")
       .then((res) => res.json())
       .then((data) => {
         console.log(`raw sat data:`, data);
@@ -21,28 +24,22 @@ export default function SatelliteList() {
   //   console.log("🧪 isArray?", Array.isArray(satellites));
   //   console.log("🧪 satellites value:", satellites);
 
+  const filteredSatellites = satellites.filter(
+    (sat) => sat.name.toLowerCase().includes(search.toLowerCase()) // HAVE to make searched sat name and search to lower case
+  );
+
   return (
-    <ul
-      style={{
-        position: "absolute",
-        top: "100px",
-        left: "10px",
-        width: "150px",
-        maxHeight: "300px",
-        overflowY: "auto", // enables vertical scrolling
-        padding: "10px",
-        backgroundColor: "#222121ff",
-        borderRadius: "12px",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-        margin: "0",
-        color: "#f9f5f5ff",
-        cursor: "pointer",
-        zIndex: 1000, // ensures the list stays above the map
-      }}>
-      List of Satellites below:
-      {satellites.slice(0, 20).map((sat, i) => {
-        // console.log(JSON.stringify(sat, null, 2));
-        return (
+    <ul className=" list">
+      <input
+        className="searchBar"
+        placeholder="Search for Satellites here..."
+        type="text"
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      {filteredSatellites.length === 0 ? (
+        <p>Could not find Satellite</p>
+      ) : (
+        filteredSatellites.map((sat, i) => (
           <p
             key={i}
             onMouseEnter={() => setHoverStyle(i)}
@@ -50,8 +47,8 @@ export default function SatelliteList() {
             style={{ color: hoverStyle === i ? "red" : "" }}>
             {sat.name}
           </p>
-        );
-      })}
+        ))
+      )}
     </ul>
   );
 }

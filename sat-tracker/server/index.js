@@ -12,11 +12,11 @@ app.get("/api/satellites", async (req, res) => {
     const response = await axios.get(
       "https://sscweb.gsfc.nasa.gov/WS/sscr/2/observatories"
     );
-    console.log(response.data);
+    // console.log(response.data);
 
     const rawList = response.data[1]?.Observatory?.[1];
 
-    console.log(rawList);
+    // console.log(rawList);
 
     if (!Array.isArray(rawList)) {
       throw new Error("Weird sat data structure ");

@@ -21,3 +21,27 @@
     transform: rotate(360deg);
   }
 }
+
+.searchBar {
+  border-radius: 5px;
+  border: 1px solid white;
+  width: 100%;
+  font-size: 15px;
+}
+
+.list {
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  width: 200px;
+  height: 650px;
+  overflow-y: auto; /* enables vertical scrolling */
+  padding: 10px;
+  background-color: #222121ff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  color: #f9f5f5ff;
+  cursor: pointer;
+  z-index: 1000; /* ensures the list stays above the map */
+}
