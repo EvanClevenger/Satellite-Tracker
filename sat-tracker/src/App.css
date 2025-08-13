@@ -45,3 +45,7 @@
   cursor: pointer;
   z-index: 1000; /* ensures the list stays above the map */
 }
+
+.pin-icon {
+  fill: red;
+}

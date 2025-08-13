@@ -3,12 +3,44 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { FixedSizeList as List } from "react-window"; //used for rendering large lists
 
-export default function SatelliteList() {
+export default function SatelliteList({ observerPosition }) {
+  // observerPosition being sent as {[]}, destructure nessasary
   const [satellites, setSatellites] = useState([]);
 
   const [hoverStyle, setHoverStyle] = useState(false);
 
   const [search, setSearch] = useState("");
+
+  const [selected, setSelected] = useState(null);
+  //   console.log(observerPosition);
+
+  useEffect(() => {
+    const seconds = 180; // 3 min of future data
+    //ensures that selected is always up to date, with current selected item
+
+    if (selected) {
+      fetch("/frontend/selectedSat", {
+        //sending exact params to backend to then fetch data
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: selected.NORAD_CAT_ID,
+          observer_lat: observerPosition[0],
+          observer_lng: observerPosition[1],
+          observer_alt: observerPosition[2],
+          seconds: seconds,
+        }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error(`Server resonded with ${res.status}`);
+          return res.json();
+        })
+        .then((data) => console.log(data))
+        .catch((err) => console.log(`error connecting to backend: ${err}`));
+    }
+  }, [selected, observerPosition]); // runs after this dependecy is changed ->[selected]
 
   useEffect(() => {
     fetch("/api/staticSatelliteList")
@@ -59,7 +91,10 @@ export default function SatelliteList() {
                   cursor: "pointer",
                 }}
                 onMouseEnter={() => setHoverStyle(index)}
-                onMouseLeave={() => setHoverStyle(null)}>
+                onMouseLeave={() => setHoverStyle(null)}
+                onClick={() => {
+                  setSelected(sat);
+                }}>
                 {sat.OBJECT_NAME}
               </p>
             );

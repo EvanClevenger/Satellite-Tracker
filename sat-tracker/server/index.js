@@ -1,43 +1,18 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const axios = require("axios");
+// const axios = require("axios");
 const satelliteList = require("../data/satList.json");
+const satelliteRoutes = require("../routes/satRoutes");
 
 const app = express();
 app.use(cors());
+app.use(express.json()); // allows express to parse json
 
 //fetching data from N2YO.com
-// app.get("/api/satellites", async (req, res) => {
-//   try {
-//     const response = await axios.get(
-//       "https://sscweb.gsfc.nasa.gov/WS/sscr/2/observatories"
-//     );
-//     // console.log(response.data);
-
-//     const rawList = response.data[1]?.Observatory?.[1];
-
-//     // console.log(rawList);
-
-//     if (!Array.isArray(rawList)) {
-//       throw new Error("Weird sat data structure ");
-//     }
-
-//     const satellites = rawList.map(([_, sats]) => ({
-//       id: sats.Id,
-//       name: sats.Name,
-//       description: sats.Description,
-//     }));
-
-//     res.json({ satellites }); // sends res to frontend
-//   } catch (error) {
-//     console.log(`There was an error getting Sat Data: ${error}`);
-//     res.status(500).json({ error: "failed to fetch sat data" });
-//   }
-// });
+app.use("/frontend", satelliteRoutes);
 
 //fetch satList from data/satList
-
 app.get("/api/staticSatelliteList", (req, res) => {
   res.json(satelliteList);
   console.log(res);

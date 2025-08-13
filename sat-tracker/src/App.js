@@ -13,14 +13,15 @@ function App() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setPosition([latitude, longitude]);
+        const altitude = 100; // cannot get alt so we harcoding it
+        setPosition([latitude, longitude, altitude]);
       },
       (err) => console.log(`Geolocation error: ${err}`)
     );
-  }, []); // not really going to need this but I have it here anyway just to remeber how to get current location
+  }, []); // on page load
 
   const customerIcon = L.icon({
-    iconUrl: "../satellite2.png",
+    iconUrl: "../pin.png",
     iconSize: [32, 32],
   });
 
@@ -30,7 +31,7 @@ function App() {
         <>
           <MapContainer
             center={position}
-            zoom={10}
+            zoom={2.5}
             style={{ height: "100vh", width: "100%" }}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -41,7 +42,9 @@ function App() {
               <Popup> satellite name</Popup>
             </Marker>
           </MapContainer>
-          <SatelliteList />
+          <SatelliteList
+            observerPosition={position} /* passing position props */
+          />
         </> //fragement, used to return multiple elements
       ) : (
         <Spinner />
