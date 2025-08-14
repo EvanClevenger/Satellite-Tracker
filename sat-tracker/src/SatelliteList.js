@@ -1,9 +1,10 @@
-import { point } from "leaflet";
+// import { point } from "leaflet";
 import { useState, useEffect } from "react";
 import "./App.css";
 import { FixedSizeList as List } from "react-window"; //used for rendering large lists
 
-export default function SatelliteList({ observerPosition }) {
+export default function SatelliteList({ observerPosition, setCurrentSat }) {
+  // Props are read only!!
   // observerPosition being sent as {[]}, destructure nessasary
   const [satellites, setSatellites] = useState([]);
 
@@ -12,18 +13,18 @@ export default function SatelliteList({ observerPosition }) {
   const [search, setSearch] = useState("");
 
   const [selected, setSelected] = useState(null);
-  //   console.log(observerPosition);
+
+  // console.log(observerPosition);
 
   useEffect(() => {
     const seconds = 180; // 3 min of future data
     //ensures that selected is always up to date, with current selected item
-
     if (selected) {
       fetch("/frontend/selectedSat", {
         //sending exact params to backend to then fetch data
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // tells server we are sending json,this is internal
         },
         body: JSON.stringify({
           id: selected.NORAD_CAT_ID,
@@ -35,12 +36,12 @@ export default function SatelliteList({ observerPosition }) {
       })
         .then((res) => {
           if (!res.ok) throw new Error(`Server resonded with ${res.status}`);
-          return res.json();
+          return res.json(); //parses data from backend
         })
-        .then((data) => console.log(data))
+        .then((data) => setCurrentSat(data))
         .catch((err) => console.log(`error connecting to backend: ${err}`));
     }
-  }, [selected, observerPosition]); // runs after this dependecy is changed ->[selected]
+  }, [selected, observerPosition, setCurrentSat]); // runs after this dependecy is changed ->[selected]
 
   useEffect(() => {
     fetch("/api/staticSatelliteList")
@@ -49,7 +50,7 @@ export default function SatelliteList({ observerPosition }) {
         // console.log(`raw sat data:`, data);
         setSatellites(data);
       })
-      .catch((err) => console.log(`Failed to fetch sat list: ${err}`));
+      .catch((err) => console.log(`Failed to fetch static sat list: ${err}`));
   }, []);
 
   //   console.log({ satellites });

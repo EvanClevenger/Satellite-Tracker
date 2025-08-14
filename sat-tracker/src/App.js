@@ -8,6 +8,7 @@ import SatelliteList from "./SatelliteList";
 
 function App() {
   const [position, setPosition] = useState();
+  const [currentSatellite, setCurrentSatellite] = useState();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -20,10 +21,22 @@ function App() {
     );
   }, []); // on page load
 
+  console.log(currentSatellite);
+
   const customerIcon = L.icon({
     iconUrl: "../pin.png",
     iconSize: [32, 32],
   });
+
+  const satelliteIcon = L.icon({
+    iconUrl: "../satellite2.png",
+    iconSize: [32, 32],
+  });
+
+  const satCoordinates = [
+    currentSatellite.positions[0].satlatitude,
+    currentSatellite.positions[0].satlongitude,
+  ];
 
   return (
     <div style={{ position: "relative", height: "100%", width: "100%" }}>
@@ -31,7 +44,7 @@ function App() {
         <>
           <MapContainer
             center={position}
-            zoom={2.5}
+            zoom={3}
             style={{ height: "100vh", width: "100%" }}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -39,11 +52,15 @@ function App() {
             />
 
             <Marker icon={customerIcon} position={position}>
-              <Popup> satellite name</Popup>
+              <Popup> You'r current position</Popup>
+            </Marker>
+            <Marker icon={satelliteIcon} position={satCoordinates}>
+              <Popup> {currentSatellite.info.satname}</Popup>
             </Marker>
           </MapContainer>
           <SatelliteList
             observerPosition={position} /* passing position props */
+            setCurrentSat={setCurrentSatellite}
           />
         </> //fragement, used to return multiple elements
       ) : (
