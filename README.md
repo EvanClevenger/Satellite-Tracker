@@ -25,6 +25,7 @@ A real-time satellite tracking web app built with React and Express. This projec
    - Then run server, cd server , npm run start
    - Then run client, cd into root, npm run start
   
-     🔄 Ongoing Development
+
+## 🔄 Ongoing Development
 This project is actively evolving. Expect frequent updates as new features, performance improvements, and UI enhancements are added. Contributions and feedback are welcome!
 
