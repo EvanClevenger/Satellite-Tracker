@@ -8,7 +8,10 @@ import SatelliteList from "./SatelliteList";
 
 function App() {
   const [position, setPosition] = useState();
-  const [currentSatellite, setCurrentSatellite] = useState();
+  const [currentSatellite, setCurrentSatellite] = useState({
+    info: { satname: "", satid: 0 },
+    positions: [{ satlatitude: 0, satlongitude: 0 }],
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -21,9 +24,9 @@ function App() {
     );
   }, []); // on page load
 
-  console.log(currentSatellite);
+  // console.log(currentSatellite);
 
-  const customerIcon = L.icon({
+  const userLocationIcon = L.icon({
     iconUrl: "../pin.png",
     iconSize: [32, 32],
   });
@@ -51,7 +54,7 @@ function App() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            <Marker icon={customerIcon} position={position}>
+            <Marker icon={userLocationIcon} position={position}>
               <Popup> You'r current position</Popup>
             </Marker>
             <Marker icon={satelliteIcon} position={satCoordinates}>
