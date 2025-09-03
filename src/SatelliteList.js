@@ -20,20 +20,23 @@ export default function SatelliteList({ observerPosition, setCurrentSat }) {
     const seconds = 180; // 3 min of future data
     //ensures that selected is always up to date, with current selected item
     if (selected) {
-      fetch("/frontend/selectedSat", {
-        //sending exact params to backend to then fetch data
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // tells server we are sending json,this is internal
-        },
-        body: JSON.stringify({
-          id: selected.NORAD_CAT_ID,
-          observer_lat: observerPosition[0],
-          observer_lng: observerPosition[1],
-          observer_alt: observerPosition[2],
-          seconds: seconds,
-        }),
-      })
+      fetch(
+        "https://satellite-api.evanclevenger.workers.dev/api/N2YO.com/positions",
+        {
+          //sending exact params to backend to then fetch data
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // tells server we are sending json,this is internal
+          },
+          body: JSON.stringify({
+            id: selected.NORAD_CAT_ID,
+            observer_lat: observerPosition[0],
+            observer_lng: observerPosition[1],
+            observer_alt: observerPosition[2],
+            seconds: seconds,
+          }),
+        }
+      )
         .then((res) => {
           if (!res.ok) throw new Error(`Server resonded with ${res.status}`);
           return res.json(); //parses data from backend
