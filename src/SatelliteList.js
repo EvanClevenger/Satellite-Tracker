@@ -47,18 +47,10 @@ export default function SatelliteList({ observerPosition, setCurrentSat }) {
     fetch("/api/staticSatelliteList")
       .then((res) => res.json())
       .then((data) => {
-        // console.log(`raw sat data:`, data);
         setSatellites(data);
       })
       .catch((err) => console.log(`Failed to fetch static sat list: ${err}`));
   }, []);
-
-  //   console.log({ satellites });
-
-  // this really helped
-  //   console.log("🧪 satellites type:", typeof satellites);
-  //   console.log("🧪 isArray?", Array.isArray(satellites));
-  //   console.log("🧪 satellites value:", satellites);
 
   const filteredSatellites = satellites.filter(
     (sat) => sat.OBJECT_NAME.toLowerCase().includes(search.toLowerCase()) // HAVE to make searched sat name and search to lower case
@@ -81,7 +73,7 @@ export default function SatelliteList({ observerPosition, setCurrentSat }) {
           itemSize={35} // height of each item
           width={"100%"}>
           {({ index, style }) => {
-            const sat = filteredSatellites[index];
+            const sat = filteredSatellites[index]; // index = current rendered list view
             return (
               <p
                 key={index}

@@ -55,7 +55,7 @@ function App() {
             />
 
             <Marker icon={userLocationIcon} position={position}>
-              <Popup> You'r current position</Popup>
+              <Popup> User Position</Popup>
             </Marker>
             <Marker icon={satelliteIcon} position={satCoordinates}>
               <Popup> {currentSatellite.info.satname}</Popup>
