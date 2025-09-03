@@ -42,5 +42,5 @@
     ]
   },
   "proxy": "http://localhost:8001",
-  "homepage": "https://EvanClevenger.github.io/Satellite-Tracker"
+  "homepage": "."
 }
