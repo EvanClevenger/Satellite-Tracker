@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Satellite-Tracker/static/css/main.75de3843.css",
+    "main.js": "/Satellite-Tracker/static/js/main.3c072a37.js",
+    "index.html": "/Satellite-Tracker/index.html",
+    "main.75de3843.css.map": "/Satellite-Tracker/static/css/main.75de3843.css.map",
+    "main.3c072a37.js.map": "/Satellite-Tracker/static/js/main.3c072a37.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.75de3843.css",
+    "static/js/main.3c072a37.js"
+  ]
+}
