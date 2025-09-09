@@ -44,7 +44,7 @@
     ]
   },
   "proxy": "http://localhost:8001",
-  "homepage": "https://EvanClevenger.github.io/Satellite-Tracker",
+  "homepage": "http://localhost:3000/Satellite-Tracker",
   "devDependencies": {
     "gh-pages": "^6.3.0"
   }

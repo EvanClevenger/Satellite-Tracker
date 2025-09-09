@@ -27,12 +27,13 @@ function App() {
   // console.log(currentSatellite);
 
   const userLocationIcon = L.icon({
-    iconUrl: "../pin.png",
+    iconUrl: `${process.env.PUBLIC_URL}/pin.png`,
     iconSize: [32, 32],
   });
+  // we have to use "process.env.PUBLIC_URL" because we need to reference the public folder instead. app runs from build now
 
   const satelliteIcon = L.icon({
-    iconUrl: "../satellite2.png",
+    iconUrl: `${process.env.PUBLIC_URL}/satellite2.png`,
     iconSize: [32, 32],
   });
 
