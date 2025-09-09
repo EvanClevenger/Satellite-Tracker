@@ -30,7 +30,7 @@ function App() {
     iconUrl: `${process.env.PUBLIC_URL}/pin.png`,
     iconSize: [32, 32],
   });
-  // we have to use "process.env.PUBLIC_URL" because we need to reference the public folder instead. app runs from build now
+  // we have to use "process.env.PUBLIC_URL", once in production the app is served from (ref json) "homepage" : http://localhost:3000/Satellite-Tracker instead of just the root ('/'), this happens after npm build
 
   const satelliteIcon = L.icon({
     iconUrl: `${process.env.PUBLIC_URL}/satellite2.png`,
