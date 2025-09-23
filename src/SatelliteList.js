@@ -43,17 +43,43 @@ export default function SatelliteList({ observerPosition, setCurrentSat }) {
     }
   }, [selected, observerPosition, setCurrentSat]); // runs after this dependecy is changed ->[selected]
 
+  // useEffect(() => {
+  //   fetch("/graphql")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setSatellites(data);
+  //     })
+
+  //     .catch((err) => console.log(`Failed to fetch static sat list: ${err}`));
+  // }, []); // fetches static sat info from data/satList.json, we want to add gql here.  OLD!!
+
   useEffect(() => {
-    fetch("/api/staticSatelliteList")
+    fetch("/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // tells server we are sending json,this is internal
+      },
+      body: JSON.stringify({
+        query: `
+        query {
+          satellites {
+            OBJECT_NAME
+            NORAD_CAT_ID
+          }
+        }
+      `,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
-        setSatellites(data);
+        setSatellites(data.data.satellites); // note the nested structure
       })
+      .catch((err) =>
+        console.log(`Failed to fetch satellite data from GraphQL: ${err}`)
+      );
+  }, []);
 
-      .catch((err) => console.log(`Failed to fetch static sat list: ${err}`));
-  }, []); // fetches static sat info from data/satList.json, we want to add gql here
-
-  console.log(selected);
+  // console.log(selected);
 
   const filteredSatellites = satellites.filter(
     (sat) => sat.OBJECT_NAME.toLowerCase().includes(search.toLowerCase()) // HAVE to make searched sat name and search to lower case
