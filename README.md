@@ -1,6 +1,6 @@
 # 🛰️ Satellite Tracker
 
-A real-time satellite tracking web app built with React and Express. This project visualizes satellite positions using geospatial data and offers a responsive UI for exploring orbital paths and metadata.
+A real-time satellite tracking web app built with React, Express and GraphQL. This project pin points satellite positions using geospatial data and offers a responsive UI for exploring orbital paths and metadata.
 
 ## 🚀 Features
 
@@ -12,8 +12,8 @@ A real-time satellite tracking web app built with React and Express. This projec
 ## 🛠️ Tech Stack
 
 - **Frontend:** React, Leaflet, react-window
-- **Backend:** Node.js, Express
-- **Data Sources:** N2YO API, Celestrak (static JSON fallback)
+- **Backend:** Node.js, Express, GraphQL
+- **Data Sources:** N2YO API and Celestrak (static JSON fallback)
 - **Map Rendering:** Leaflet with custom icons
 
 ## 📦 Setup Instructions
