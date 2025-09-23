@@ -1,13 +1,14 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-// const axios = require("axios");
+const graphQL = require("express-graphql");
 const satelliteList = require("../data/satList.json");
 const satelliteRoutes = require("../routes/satRoutes");
 
 const app = express();
 app.use(cors());
 app.use(express.json()); // allows express to parse json
+// app.use("/graphql", graphQL({}));
 
 //fetching data from N2YO.com
 app.use("/frontend", satelliteRoutes);
