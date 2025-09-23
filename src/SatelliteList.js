@@ -49,8 +49,11 @@ export default function SatelliteList({ observerPosition, setCurrentSat }) {
       .then((data) => {
         setSatellites(data);
       })
+
       .catch((err) => console.log(`Failed to fetch static sat list: ${err}`));
-  }, []);
+  }, []); // fetches static sat info from data/satList.json, we want to add gql here
+
+  console.log(selected);
 
   const filteredSatellites = satellites.filter(
     (sat) => sat.OBJECT_NAME.toLowerCase().includes(search.toLowerCase()) // HAVE to make searched sat name and search to lower case

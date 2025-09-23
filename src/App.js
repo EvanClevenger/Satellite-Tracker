@@ -5,6 +5,7 @@ import "./App.css";
 import L from "leaflet";
 import Spinner from "./Spinner";
 import SatelliteList from "./SatelliteList";
+import { useMap } from "react-leaflet";
 
 function App() {
   const [position, setPosition] = useState();
@@ -54,7 +55,6 @@ function App() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
             <Marker icon={userLocationIcon} position={position}>
               <Popup> User Position</Popup>
             </Marker>
