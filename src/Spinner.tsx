@@ -1,9 +1,9 @@
-import { divIcon } from "leaflet";
+// import { divIcon } from "leaflet";
 
 export default function Spinner() {
   return (
     <div className="spinner-container">
-      <div className="spinner"></div>;
+      <div className="spinner"></div>
     </div>
   );
 }
