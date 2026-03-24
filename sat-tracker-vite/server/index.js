@@ -1,15 +1,14 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
 
-const { graphqlHTTP } = require("express-graphql"); // connects schema to express route
-const { GraphQLSchema } = require("graphql"); // wraps root query into a full schema object
+import { graphqlHTTP } from "express-graphql";
+// connects schema to express route
+import { GraphQLSchema } from "graphql";
+// wraps root query into a full schema object
 
-// const satelliteList = require("../data/satList.json");
-const satelliteRoutes = require("../routes/satRoutes.js");
-const RootQuery = require("./schema.js");
-
-// const { graphqlHTTP } = require("express-graphql");
+import satelliteRoutes from "./routes/satRoutes.js";
+import RootQuery from "./schema.js";
 
 const app = express();
 app.use(cors());

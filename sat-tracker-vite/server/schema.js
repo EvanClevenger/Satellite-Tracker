@@ -1,5 +1,7 @@
-const graphql = require("graphql");
-const satelliteList = require("../../data/satList.json");
+// const graphql = require("graphql");
+import graphql from "graphql";
+import satelliteList from "../../data/satList.json" assert { type: "json" };
+// const satelliteList = require("../../data/satList.json");
 
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = graphql;
 // GraphQLList defines arrays, GraphQLObjectType defines custom types
@@ -33,4 +35,4 @@ const RootQuery = new GraphQLObjectType({
 // feild : {satellites {} } returns a list of SatNameAndCatID objects
 // resolve pulls from the static data defined in line 2, (parent, args) is needed but not used.
 
-module.exports = RootQuery;
+export default RootQuery;
