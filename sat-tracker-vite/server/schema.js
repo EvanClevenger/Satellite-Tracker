@@ -1,7 +1,5 @@
-// const graphql = require("graphql");
 import graphql from "graphql";
-import satelliteList from "../../data/satList.json" assert { type: "json" };
-// const satelliteList = require("../../data/satList.json");
+import satelliteList from "../data/satList.json" with { type: "json" };
 
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = graphql;
 // GraphQLList defines arrays, GraphQLObjectType defines custom types
