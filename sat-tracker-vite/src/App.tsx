@@ -5,10 +5,10 @@ import "./App.css";
 import L from "leaflet";
 import Spinner from "./Spinner";
 import SatelliteList from "./SatelliteList";
-import { useMap } from "react-leaflet";
+// import { useMap } from "react-leaflet";
 
 function App() {
-  const [position, setPosition] = useState();
+  const [position, setPosition] = useState<[number, number, number]>;
   const [currentSatellite, setCurrentSatellite] = useState({
     info: { satname: "", satid: 0 },
     positions: [{ satlatitude: 0, satlongitude: 0 }],
