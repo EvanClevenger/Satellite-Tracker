@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./App.css";
 import L from "leaflet";
 import Spinner from "./Spinner";
 import SatelliteList from "./SatelliteList";
-// import { useMap } from "react-leaflet";
 
 function App() {
-  const [position, setPosition] = useState<[number, number, number]>;
+  const [position, setPosition] = useState<[number, number, number] | null>(
+    null,
+  );
+  // useState in TS note!
+  // when assiging types, dont forget to add default value to the useState, looks a bit different ⬆️
+
   const [currentSatellite, setCurrentSatellite] = useState({
     info: { satname: "", satid: 0 },
     positions: [{ satlatitude: 0, satlongitude: 0 }],
