@@ -3,16 +3,30 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { List, type RowComponentProps } from "react-window"; //used for rendering large lists
 
-export default function SatelliteList({ observerPosition, setCurrentSat }) {
-  // Props are read only!!
-  // observerPosition being sent as {[]}, destructure nessasary
-  const [satellites, setSatellites] = useState([]);
+type SatelliteListProps = {
+  observerPosition: number[];
+  setCurrentSat: any;
+};
 
-  const [hoverStyle, setHoverStyle] = useState(false);
+type Satellite = {
+  OBJECT_NAME: string;
+  NORAD_CAT_ID: number;
+};
 
-  const [search, setSearch] = useState("");
+export default function SatelliteList({
+  observerPosition,
+  setCurrentSat,
+}: SatelliteListProps) {
+  // when func paramater is an {}, TS needs the whole object type.
+  // in destructuring, observerPosition: means "rename this prop" , not 'give it a type'.
 
-  const [selected, setSelected] = useState(null);
+  const [satellites, setSatellites] = useState<Satellite>;
+
+  const [hoverStyle, setHoverStyle] = useState<boolean>(false);
+
+  const [search, setSearch] = useState<string>("");
+
+  const [selected, setSelected] = useState<boolean>(false);
 
   // console.log(observerPosition);
 
