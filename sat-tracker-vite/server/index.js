@@ -27,7 +27,8 @@ app.use("/frontend", satelliteRoutes);
 // app.get("/api/staticSatelliteList", (req, res) => {
 //   res.json(satelliteList);
 //   console.log(res);
-// }); REST method of getting static data
+// });
+//REST method of getting static data
 
 //loads .env
 dotenv.config();

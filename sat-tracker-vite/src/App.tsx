@@ -31,18 +31,18 @@ function App() {
 
   // console.log(currentSatellite);
 
-  const userLocationIcon = L.icon({
+  const userLocationIcon: any = L.icon({
     iconUrl: `${import.meta.env.PUBLIC_URL}/pin.png`,
     iconSize: [32, 32],
   });
   // we have to use "process.env.PUBLIC_URL", once in production the app is served from (ref json) "homepage" : http://localhost:3000/Satellite-Tracker instead of just the root ('/'), this happens after npm build
 
-  const satelliteIcon = L.icon({
+  const satelliteIcon: any = L.icon({
     iconUrl: `${import.meta.env.PUBLIC_URL}/satellite2.png`,
     iconSize: [32, 32],
   });
 
-  const satCoordinates = [
+  const satCoordinates: [number, number] = [
     currentSatellite.positions[0].satlatitude,
     currentSatellite.positions[0].satlongitude,
   ];

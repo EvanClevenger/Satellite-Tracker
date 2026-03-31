@@ -20,7 +20,8 @@ export default function SatelliteList({
   // when func paramater is an {}, TS needs the whole object type.
   // in destructuring, observerPosition: means "rename this prop" , not 'give it a type'.
 
-  const [satellites, setSatellites] = useState<Satellite>;
+  const [satellites, setSatellites] = useState<Satellite[]>([]);
+  // we do useState<Satellite[]>([]); because it is a list, []-> array of satellites
 
   const [hoverStyle, setHoverStyle] = useState<boolean>(false);
 

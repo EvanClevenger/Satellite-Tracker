@@ -1,11 +1,7 @@
-// const express = require("express");
-// const fetch = require("node-fetch");
-// const router = express.Router();
-// const dotenv = require("dotenv");
-
 import express from "express";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
+
 const router = express.Router();
 
 //req is incoming res is outgoing
@@ -23,7 +19,6 @@ router.post("/selectedSat", async (req, res) => {
     throw new Error("Bad API key");
   }
 
-  // const API_KEY = process.env.N2YO_API_KEY;
   const URL = `https://api.n2yo.com/rest/v1/satellite/positions/${id}/${observer_lat}/${observer_lng}/${observer_alt}/${seconds}/?apiKey=${API_KEY}`;
   try {
     const response = await fetch(URL);
