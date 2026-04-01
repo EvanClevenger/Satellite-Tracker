@@ -27,13 +27,12 @@ export default function SatelliteList({
 
   const [search, setSearch] = useState<string>("");
 
-  const [selected, setSelected] = useState<boolean>(false);
-
-  // console.log(observerPosition);
+  const [selected, setSelected] = useState<Satellite | null>(null);
 
   useEffect(() => {
     const seconds = 180; // 3 min of future data
     //ensures that selected is always up to date, with current selected item
+
     if (selected) {
       fetch("/frontend/selectedSat", {
         //sending exact params to backend to then fetch data
@@ -86,8 +85,10 @@ export default function SatelliteList({
       }),
     })
       .then((res) => res.json())
+
       .then((data) => {
         setSatellites(data.data.satellites); // note the nested structure
+        console.log("graphQL fired");
       })
       .catch((err) =>
         console.log(`Failed to fetch satellite data from GraphQL: ${err}`),
@@ -128,7 +129,7 @@ export default function SatelliteList({
                   cursor: "pointer",
                 }}
                 onMouseEnter={() => setHoverStyle(index)}
-                onMouseLeave={() => setHoverStyle(null)}
+                onMouseLeave={() => setHoverStyle(false)}
                 onClick={() => {
                   setSelected(sat);
                 }}>
