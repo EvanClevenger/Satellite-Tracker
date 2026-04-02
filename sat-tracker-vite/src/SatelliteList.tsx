@@ -68,13 +68,16 @@ export default function SatelliteList({
   // }, []); // fetches static sat info from data/satList.json, we want to add gql here.  OLD!!
 
   useEffect(() => {
-    fetch("/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // tells server we are sending json,this is internal
-      },
-      body: JSON.stringify({
-        query: `
+    console.log("graphQL fired");
+
+    try {
+      fetch("/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // tells server we are sending json,this is internal
+        },
+        body: JSON.stringify({
+          query: `
         query {
           satellites {
             OBJECT_NAME
@@ -82,17 +85,39 @@ export default function SatelliteList({
           }
         }
       `,
-      }),
-    })
-      .then((res) => res.json())
-
-      .then((data) => {
-        setSatellites(data.data.satellites); // note the nested structure
-        console.log("graphQL fired");
+        }),
       })
-      .catch((err) =>
-        console.log(`Failed to fetch satellite data from GraphQL: ${err}`),
-      );
+        .then(async (res) => {
+          console.log("status", res.status);
+          console.log("content-type:", res.headers.get("content-type"));
+
+          const text = await res.text();
+          //text() reads the request body and returns as a promise with a string
+          console.log("raw response:", text);
+
+          if (!res.ok) {
+            throw new Error(`Server responded with ${res.status}: ${text}`);
+          }
+
+          if (!text) {
+            throw new Error("Empty resonse body from /graphql");
+          }
+
+          return JSON.parse(text);
+        })
+        .then((data) => {
+          console.log("parsed graphql data:", data);
+          setSatellites(data.data.satellites);
+          console.log("data from graphql returned");
+        });
+      // .then((res) => res.json())
+      // .then((data) => {
+      //   setSatellites(data.data.satellites); // note the nested structure
+      //   console.log("data from graphql returned");
+      // });
+    } catch (error) {
+      console.log(`failed to get graphql data, status:${error}`);
+    }
   }, []);
 
   // console.log(selected);
