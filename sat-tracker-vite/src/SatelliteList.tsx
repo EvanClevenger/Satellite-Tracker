@@ -4,7 +4,7 @@ import "./App.css";
 import { List, type RowComponentProps } from "react-window"; //used for rendering large lists
 
 type SatelliteListProps = {
-  observerPosition: number[];
+  observerPosition: [number, number, number];
   setCurrentSat: any;
 };
 
@@ -68,8 +68,6 @@ export default function SatelliteList({
   // }, []); // fetches static sat info from data/satList.json, we want to add gql here.  OLD!!
 
   useEffect(() => {
-    console.log("graphQL fired");
-
     try {
       fetch("/graphql", {
         method: "POST",
@@ -93,7 +91,7 @@ export default function SatelliteList({
 
           const text = await res.text();
           //text() reads the request body and returns as a promise with a string
-          console.log("raw response:", text);
+          // console.log("raw response:", text);
 
           if (!res.ok) {
             throw new Error(`Server responded with ${res.status}: ${text}`);
