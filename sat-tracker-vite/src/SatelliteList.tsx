@@ -1,7 +1,7 @@
 // import { point } from "leaflet";
 import { useState, useEffect } from "react";
 import "./App.css";
-import { List, type RowComponentProps } from "react-window"; //used for rendering large lists
+import { FixedSizeList as List } from "react-window"; //used for rendering large lists
 
 type SatelliteListProps = {
   observerPosition: [number, number, number];
@@ -12,6 +12,13 @@ type Satellite = {
   OBJECT_NAME: string;
   NORAD_CAT_ID: number;
 };
+
+// type SatelliteRowProps = {
+//   satellites: Satellite[];
+//   hoveredIndex: number | null;
+//   setHoveredIndex: React.Dispatch<React.SetStateAction<number | null>>;
+//   setSelected: React.Dispatch<React.SetStateAction<Satellite | null>>;
+// };
 
 export default function SatelliteList({
   observerPosition,
@@ -137,8 +144,8 @@ export default function SatelliteList({
       ) : (
         <List
           height={600} // height of scrollable container
-          rowCount={filteredSatellites.length}
-          rowHeight={35} // height of each item
+          itemCount={filteredSatellites.length}
+          itemSize={35} // height of each item
           width={"100%"}>
           {({ index, style }) => {
             const sat = filteredSatellites[index]; // index = current rendered list view
