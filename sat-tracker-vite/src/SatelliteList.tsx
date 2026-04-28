@@ -1,6 +1,5 @@
-// import { point } from "leaflet";
 import { useState, useEffect } from "react";
-import "./App.css";
+import "./index.css";
 import { FixedSizeList as List } from "react-window"; //used for rendering large lists
 
 type SatelliteListProps = {
@@ -13,13 +12,6 @@ type Satellite = {
   NORAD_CAT_ID: number;
 };
 
-// type SatelliteRowProps = {
-//   satellites: Satellite[];
-//   hoveredIndex: number | null;
-//   setHoveredIndex: React.Dispatch<React.SetStateAction<number | null>>;
-//   setSelected: React.Dispatch<React.SetStateAction<Satellite | null>>;
-// };
-
 export default function SatelliteList({
   observerPosition,
   setCurrentSat,
@@ -30,7 +22,7 @@ export default function SatelliteList({
   const [satellites, setSatellites] = useState<Satellite[]>([]);
   // we do useState<Satellite[]>([]); because it is a list, []-> array of satellites
 
-  const [hoverStyle, setHoverStyle] = useState<boolean>(false);
+  const [hoverStyle, setHoverStyle] = useState<number | null>(null);
 
   const [search, setSearch] = useState<string>("");
 
@@ -64,16 +56,6 @@ export default function SatelliteList({
     }
   }, [selected, observerPosition, setCurrentSat]); // runs after this dependecy is changed ->[selected]
 
-  // useEffect(() => {
-  //   fetch("/graphql")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setSatellites(data);
-  //     })
-
-  //     .catch((err) => console.log(`Failed to fetch static sat list: ${err}`));
-  // }, []); // fetches static sat info from data/satList.json, we want to add gql here.  OLD!!
-
   useEffect(() => {
     try {
       fetch("/graphql", {
@@ -93,9 +75,6 @@ export default function SatelliteList({
         }),
       })
         .then(async (res) => {
-          console.log("status", res.status);
-          console.log("content-type:", res.headers.get("content-type"));
-
           const text = await res.text();
           //text() reads the request body and returns as a promise with a string
           // console.log("raw response:", text);
@@ -111,28 +90,21 @@ export default function SatelliteList({
           return JSON.parse(text);
         })
         .then((data) => {
-          console.log("parsed graphql data:", data);
+          // console.log("parsed graphql data:", data);
           setSatellites(data.data.satellites);
-          console.log("data from graphql returned");
+          // console.log("data from graphql returned");
         });
-      // .then((res) => res.json())
-      // .then((data) => {
-      //   setSatellites(data.data.satellites); // note the nested structure
-      //   console.log("data from graphql returned");
-      // });
     } catch (error) {
       console.log(`failed to get graphql data, status:${error}`);
     }
   }, []);
-
-  // console.log(selected);
 
   const filteredSatellites = satellites.filter(
     (sat) => sat.OBJECT_NAME.toLowerCase().includes(search.toLowerCase()), // HAVE to make searched sat name and search to lower case
   );
 
   return (
-    <div className=" list">
+    <div className="absolute top-24 left-2.5 w-52 h-[40rem] overflow-y-auto p-2.5 bg-neutral-900 rounded-xl shadow-lg m-0 text-neutral-50 cursor-pointer z-1000">
       <input
         className="searchBar"
         placeholder="Search for Satellites here..."
@@ -159,7 +131,7 @@ export default function SatelliteList({
                   cursor: "pointer",
                 }}
                 onMouseEnter={() => setHoverStyle(index)}
-                onMouseLeave={() => setHoverStyle(false)}
+                onMouseLeave={() => setHoverStyle(null)}
                 onClick={() => {
                   setSelected(sat);
                 }}>
