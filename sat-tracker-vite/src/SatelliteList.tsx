@@ -106,7 +106,7 @@ export default function SatelliteList({
   return (
     <div className="absolute top-24 left-2.5 w-52 h-[40rem] overflow-y-auto p-2.5 bg-neutral-900 rounded-xl shadow-lg m-0 text-neutral-50 cursor-pointer z-1000">
       <input
-        className="searchBar"
+        className="w-full h-5 border-white-200 "
         placeholder="Search for Satellites here..."
         type="text"
         onChange={(e) => setSearch(e.target.value)}
