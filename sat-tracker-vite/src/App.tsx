@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./App.css";
 import L from "leaflet";
 import Spinner from "./Spinner";
 import SatelliteList from "./SatelliteList";
@@ -32,13 +31,12 @@ function App() {
   // console.log(currentSatellite);
 
   const userLocationIcon: any = L.icon({
-    iconUrl: `${import.meta.env.PUBLIC_URL}/pin.png`,
+    iconUrl: "/person_pin.png",
     iconSize: [32, 32],
   });
-  // we have to use "process.env.PUBLIC_URL", once in production the app is served from (ref json) "homepage" : http://localhost:3000/Satellite-Tracker instead of just the root ('/'), this happens after npm build
 
   const satelliteIcon: any = L.icon({
-    iconUrl: `${import.meta.env.PUBLIC_URL}/satellite2.png`,
+    iconUrl: "satellite.png",
     iconSize: [32, 32],
   });
 
@@ -60,7 +58,7 @@ function App() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <Marker icon={userLocationIcon} position={position}>
-              <Popup> User Position</Popup>
+              <Popup> Your current position</Popup>
             </Marker>
             <Marker icon={satelliteIcon} position={satCoordinates}>
               <Popup> {currentSatellite.info.satname}</Popup>
