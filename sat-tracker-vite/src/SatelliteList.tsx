@@ -104,9 +104,9 @@ export default function SatelliteList({
   );
 
   return (
-    <div className="absolute top-24 left-2.5 w-52 h-[40rem] overflow-y-auto p-2.5 bg-neutral-900 rounded-xl shadow-lg m-0 text-neutral-50 cursor-pointer z-1000">
+    <div className="absolute top-3 left-2.5 w-[215px] h-[800px] overflow-y-auto p-2.5 bg-neutral-900 rounded-xl shadow-lg m-0 text-neutral-50 cursor-pointer z-1000">
       <input
-        className="w-full h-5 border-white-200 "
+        className="w-full h-5 border-white-200 mb-[8px]"
         placeholder="Search for Satellites here..."
         type="text"
         onChange={(e) => setSearch(e.target.value)}
@@ -115,7 +115,7 @@ export default function SatelliteList({
         <p>Could not find Satellite</p>
       ) : (
         <List
-          height={600} // height of scrollable container
+          height={725} // height of scrollable container
           itemCount={filteredSatellites.length}
           itemSize={35} // height of each item
           width={"100%"}>
