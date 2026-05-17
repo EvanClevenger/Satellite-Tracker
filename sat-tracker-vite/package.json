@@ -19,7 +19,7 @@
     "react-dom": "^19.0.0-rc.1",
     "react-leaflet": "^5.0.0",
     "react-window": "^1.8.11",
-    "resium": "^1.21.0",
+    "resium": "^1.21.1",
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {

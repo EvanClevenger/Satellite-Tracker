@@ -15,7 +15,7 @@ export default function GlobeMap({
 }: GlobeMapProps) {
   const [userLat, userLng] = userPosition;
   const [satLat, satLng] = satCoordinates;
-
+ console.log(userLat, userLng)
   return (
     <>
       <div className="h-screen bg-black flex">
@@ -35,19 +35,20 @@ export default function GlobeMap({
             sceneModePicker={false}
             navigationHelpButton={false}
             fullscreenButton={false}
-          />
+          >
 
           <Entity
             name="Your location :)"
-            position={Cartesian3.fromDegrees(userLat, userLng, 0)}
+            position={Cartesian3.fromDegrees(userLng, userLat, 0)}
+            billboard={{image:'/person_pin.png', scale:0.8}}
             point={{
               pixelSize: 12,
-              color: Color.CYAN,
+              color: Color.RED,
               outlineColor: Color.WHITE,
               outlineWidth: 2,
             }}
             label={{
-              text: "You",
+              text: "Your current position",
               font: "14px sans-serif",
               fillColor: Color.WHITE,
               outlineColor: Color.BLACK,
@@ -56,11 +57,12 @@ export default function GlobeMap({
               verticalOrigin: VerticalOrigin.BOTTOM,
               pixelOffset: new Cartesian3(0, -24, 0),
             }}
+            
           />
 
           <Entity
             name={satelliteName}
-            position={Cartesian3.fromDegrees(satLng, satLat, 500000)}
+            position={Cartesian3.fromDegrees(satLng, satLat, 1000000)}
             point={{
               pixelSize: 14,
               color: Color.YELLOW,
@@ -76,8 +78,10 @@ export default function GlobeMap({
               style: LabelStyle.FILL_AND_OUTLINE,
               verticalOrigin: VerticalOrigin.BOTTOM,
               pixelOffset: new Cartesian3(0, -28, 0),
+              
             }}
           />
+          </Viewer>
         </main>
       </div>
     </>
