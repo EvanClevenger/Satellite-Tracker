@@ -15,8 +15,14 @@ function App() {
 
   const [currentSatellite, setCurrentSatellite] = useState({
     info: { satname: "", satid: 0 },
-    positions: [{ satlatitude: 0, satlongitude: 0 }],
+    positions: [{ satlatitude: 0, satlongitude: 0, sataltitude: 0 }],
   });
+
+  const satCoordinates: [number, number, number] = [
+    currentSatellite.positions[0].satlatitude,
+    currentSatellite.positions[0].satlongitude,
+    currentSatellite.positions[0].sataltitude,
+  ];
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -31,23 +37,28 @@ function App() {
 
   // console.log(currentSatellite);
 
-  const satCoordinates: [number, number] = [
-    currentSatellite.positions[0].satlatitude,
-    currentSatellite.positions[0].satlongitude,
-  ];
-
   return (
     <>
-    <div className="min-h-screen bg-black text-white flex overflow-hidden">
-      <aside className="w-[230px] bg-zinc-950/90 border-r border-white/10 p-4 z-[1000]">
-      {position && (<SatelliteList 
-      observerPosition={position}
-      setCurrentSat = {setCurrentSatellite}
-      />) }
-      </aside>
-    </div>
-      {position ? (<GlobeMap userPosition={position} satCoordinates={satCoordinates} satelliteName={currentSatellite.info.satname} />) : (<Spinner />)}
+      <div className="min-h-screen bg-black text-white flex overflow-hidden">
+        <aside className="w-[230px] bg-zinc-950/90 border-r border-white/10 p-4 z-[1000]">
+          {position && (
+            <SatelliteList
+              observerPosition={position}
+              setCurrentSat={setCurrentSatellite}
+            />
+          )}
+        </aside>
+      </div>
+      {position ? (
+        <GlobeMap
+          userPosition={position}
+          satCoordinates={satCoordinates}
+          satelliteName={currentSatellite.info.satname}
+        />
+      ) : (
+        <Spinner />
+      )}
     </>
   );
-} 
+}
 export default App;
