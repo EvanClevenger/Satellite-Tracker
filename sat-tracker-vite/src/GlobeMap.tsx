@@ -4,7 +4,7 @@ import "cesium/Build/Cesium/Widgets/widgets.css";
 
 type GlobeMapProps = {
   userPosition: [number, number, number];
-  satCoordinates: [number, number];
+  satCoordinates: [number, number, number];
   satelliteName: string;
 };
 
@@ -14,7 +14,7 @@ export default function GlobeMap({
   satelliteName,
 }: GlobeMapProps) {
   const [userLat, userLng] = userPosition;
-  const [satLat, satLng] = satCoordinates;
+  const [satLat, satLng, satAlt] = satCoordinates;
   // console.log(userLat, userLng);
   return (
     <>
@@ -57,8 +57,8 @@ export default function GlobeMap({
               }}
             />
             <Entity
-              name={satelliteName}
-              position={Cartesian3.fromDegrees(satLng, satLat, 1000000)}
+              name={`${satelliteName}, altitude: ${satAlt}`}
+              position={Cartesian3.fromDegrees(satLng, satLat, satAlt * 1000)} // have to satAlt * 1000 to make alt into klm
               point={{
                 pixelSize: 14,
                 color: Color.YELLOW,
