@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+.cesium-viewer-bottom {
+  display: none !important;
+}
+
+.cesium-credit-logoContainer {
+  display: none !important;
+}
+
+.cesium-credit-textContainer {
+  display: none !important;
+}
+
+/* this just hides the Resium boiler plate and logo*/
