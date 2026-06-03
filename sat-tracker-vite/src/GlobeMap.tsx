@@ -29,7 +29,9 @@ export default function GlobeMap({
           sceneModePicker={false}
           navigationHelpButton={false}
           fullscreenButton={false}
-          homeButton={false}>
+          homeButton={false}
+          infoBox={false} // removed info banner, going to make custom sat banner
+        >
           <Entity
             name="Your location :)"
             position={Cartesian3.fromDegrees(userLng, userLat, 0)}
