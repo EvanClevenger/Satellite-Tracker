@@ -104,7 +104,7 @@ export default function SatelliteList({
   );
 
   return (
-    <div className="absolute top-3 left-2.5 w-[215px] h-[800px] overflow-y-auto p-2.5 bg-neutral-900 rounded-xl shadow-lg m-0 text-neutral-50 cursor-pointer z-1000">
+    <div className="w-full h-full overflow-y-auto  bg-neutral-900 rounded-xl shadow-lg text-neutral-50 cursor-pointer">
       <input
         className="w-full h-5 border-white-200 mb-[8px]"
         placeholder="Search for Satellites here..."

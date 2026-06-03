@@ -39,8 +39,8 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen bg-black text-white flex overflow-hidden">
-        <aside className="w-[230px] bg-zinc-950/90 border-r border-white/10 p-4 z-[1000]">
+      <div className="h-screen bg-black text-white flex overflow-hidden">
+        <aside className="w-[230px] shrink-0 bg-zinc-950/90 border-r border-white/10 p-2 z-[1000]">
           {position && (
             <SatelliteList
               observerPosition={position}
@@ -48,16 +48,19 @@ function App() {
             />
           )}
         </aside>
+
+        <main className="flex-1 min-w-0 h-full">
+          {position ? (
+            <GlobeMap
+              userPosition={position}
+              satCoordinates={satCoordinates}
+              satelliteName={currentSatellite.info.satname}
+            />
+          ) : (
+            <Spinner />
+          )}
+        </main>
       </div>
-      {position ? (
-        <GlobeMap
-          userPosition={position}
-          satCoordinates={satCoordinates}
-          satelliteName={currentSatellite.info.satname}
-        />
-      ) : (
-        <Spinner />
-      )}
     </>
   );
 }
