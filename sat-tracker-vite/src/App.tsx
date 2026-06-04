@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import SatelliteList from "./SatelliteList";
 import GlobeMap from "./GlobeMap";
+import InfoBanner from "./InfoBanner";
 
 function App() {
   const [position, setPosition] = useState<[number, number, number] | null>(
@@ -48,6 +49,8 @@ function App() {
             />
           )}
         </aside>
+
+        <InfoBanner currentSatellite={currentSatellite} />
 
         <main className="flex-1 min-w-0 h-full">
           {position ? (
