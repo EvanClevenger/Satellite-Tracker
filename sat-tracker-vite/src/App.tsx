@@ -7,12 +7,15 @@ import SatelliteList from "./SatelliteList";
 import GlobeMap from "./GlobeMap";
 import InfoBanner from "./InfoBanner";
 
+import { useFavorites } from "../hooks/useFavorites";
+
 function App() {
   const [position, setPosition] = useState<[number, number, number] | null>(
     null,
   );
   // useState in TS note!
   // when assiging types, dont forget to add default value to the useState, looks a bit different ⬆️
+  const [favorites, toggleFavorites, favoritesLoaded] = useFavorites();
 
   const [currentSatellite, setCurrentSatellite] = useState({
     info: { satname: "", satid: 0 },
@@ -67,4 +70,3 @@ function App() {
     </>
   );
 }
-export default App;
