@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "satellite_tracker:favorites";
+const STORAGE_KEY: string = "satellite_tracker:favorites";
+const MAX_FAVORITES: number = 5;
+
+type FavoriteSatellite = {
+  NORAD_CAT_ID: number;
+  OBJECT_NAME: string;
+};
 
 export const useFavorites = () => {
-  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
-
+  // favorites starts as empty array
+  const [favorites, setFavorites] = useState<FavoriteSatellite[]>([]);
   const [favoritesLoaded, setFavoritesLoaded] = useState(Boolean(false));
 
   // Loads data upon page loading
@@ -30,11 +36,31 @@ export const useFavorites = () => {
     }
   }, [favorites, favoritesLoaded]);
 
-  const toggleFavorites = (NORAD_CAT_ID: string) => {
-    setFavorites((prev) => ({
-      ...prev,
-      [NORAD_CAT_ID]: !prev[NORAD_CAT_ID],
-    }));
+  // adds or removes satellites from favorites
+  const toggleFavorites = (satellite: FavoriteSatellite) => {
+    // checks if the satellite is already in favorites
+    const alreadyFavorited = favorites.some(
+      (favSat) => favSat.NORAD_CAT_ID === satellite.NORAD_CAT_ID,
+    );
+
+    // removes satellite if in local storage
+    if (alreadyFavorited) {
+      const updatedFavorites = favorites.filter(
+        (favSat) => favSat.NORAD_CAT_ID !== satellite.NORAD_CAT_ID,
+      );
+
+      setFavorites(updatedFavorites);
+      return;
+    }
+
+    // If its NOT already, check the max limit
+    if (favorites.length >= MAX_FAVORITES) {
+      alert("You can only favorite 5 satellites.");
+      return;
+    }
+
+    // Adds new satellite to favorites array
+    setFavorites([...favorites, satellite]);
   };
 
   return { favorites, toggleFavorites, favoritesLoaded };

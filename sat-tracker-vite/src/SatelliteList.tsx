@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./index.css";
 import { FixedSizeList as List } from "react-window"; //used for rendering large lists
+import FavoriteButton from "./FavoriteButton";
 
 type SatelliteListProps = {
   observerPosition: [number, number, number];
@@ -118,7 +119,8 @@ export default function SatelliteList({
           height={725} // height of scrollable container
           itemCount={filteredSatellites.length}
           itemSize={35} // height of each item
-          width={"100%"}>
+          width={"100%"}
+        >
           {({ index, style }) => {
             const sat = filteredSatellites[index]; // index = current rendered list view
             return (
@@ -134,7 +136,8 @@ export default function SatelliteList({
                 onMouseLeave={() => setHoverStyle(null)}
                 onClick={() => {
                   setSelected(sat);
-                }}>
+                }}
+              >
                 {sat.OBJECT_NAME}
               </p>
             );

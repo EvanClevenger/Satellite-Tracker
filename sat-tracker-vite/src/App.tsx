@@ -6,7 +6,6 @@ import Spinner from "./Spinner";
 import SatelliteList from "./SatelliteList";
 import GlobeMap from "./GlobeMap";
 import InfoBanner from "./InfoBanner";
-
 import { useFavorites } from "../hooks/useFavorites";
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
   );
   // useState in TS note!
   // when assiging types, dont forget to add default value to the useState, looks a bit different ⬆️
-  const [favorites, toggleFavorites, favoritesLoaded] = useFavorites();
+  // const { favorites, toggleFavorites, favoritesLoaded } = useFavorites();
 
   const [currentSatellite, setCurrentSatellite] = useState({
     info: { satname: "", satid: 0 },
