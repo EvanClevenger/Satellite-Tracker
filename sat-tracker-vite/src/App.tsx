@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import SatelliteList from "./SatelliteList";
 import GlobeMap from "./GlobeMap";
+import InfoBanner from "./InfoBanner";
+
+import { useFavorites } from "../hooks/useFavorites";
 
 function App() {
   const [position, setPosition] = useState<[number, number, number] | null>(
@@ -12,6 +15,7 @@ function App() {
   );
   // useState in TS note!
   // when assiging types, dont forget to add default value to the useState, looks a bit different ⬆️
+  const [favorites, toggleFavorites, favoritesLoaded] = useFavorites();
 
   const [currentSatellite, setCurrentSatellite] = useState({
     info: { satname: "", satid: 0 },
@@ -48,6 +52,8 @@ function App() {
             />
           )}
         </aside>
+
+        <InfoBanner currentSatellite={currentSatellite} />
 
         <main className="flex-1 min-w-0 h-full">
           {position ? (
