@@ -1,23 +1,33 @@
 import { useState, useEffect } from "react";
 
 const STORAGE_KEY = "satellite_tracker:favorites";
+const MAX_FAVORITES = 5;
+
+type FavoriteSatellite = {
+  OBJECT_NAME: string;
+  NORAD_CAT_ID: number;
+};
 
 export const useFavorites = () => {
-  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+  const [favorites, setFavorites] = useState<FavoriteSatellite[]>([]);
 
   const [favoritesLoaded, setFavoritesLoaded] = useState(Boolean(false));
 
   // Loads data upon page loading
   useEffect(() => {
-    try {
-      const favoritesData = localStorage.getItem(STORAGE_KEY);
+    const savedFavorites = localStorage.getItem(STORAGE_KEY);
 
-      if (favoritesData) {
-        setFavorites(JSON.parse(favoritesData));
+    if (savedFavorites) {
+      const parsedFavorites = JSON.parse(savedFavorites);
+
+      if (Array.isArray(parsedFavorites)) {
+        setFavorites(parsedFavorites);
+      } else {
+        setFavorites([]);
       }
-    } finally {
-      setFavoritesLoaded(true);
     }
+
+    setFavoritesLoaded(true);
   }, []);
 
   //save favorites when favorites are changed
@@ -30,12 +40,30 @@ export const useFavorites = () => {
     }
   }, [favorites, favoritesLoaded]);
 
-  const toggleFavorites = (NORAD_CAT_ID: string) => {
-    setFavorites((prev) => ({
-      ...prev,
-      [NORAD_CAT_ID]: !prev[NORAD_CAT_ID],
-    }));
+  const toggleFavorites = (satellite: FavoriteSatellite) => {
+    setFavorites((prev) => {
+      const alreadyFavorited = prev.some(
+        (fav) => fav.NORAD_CAT_ID === satellite.NORAD_CAT_ID,
+      );
+
+      if (alreadyFavorited) {
+        return prev.filter(
+          (fav) => fav.NORAD_CAT_ID !== satellite.NORAD_CAT_ID,
+        );
+      }
+
+      if (prev.length >= MAX_FAVORITES) {
+        alert("You can only favorite 5 Satellites");
+        return prev;
+      }
+
+      return [...prev, satellite];
+    });
   };
 
-  return { favorites, toggleFavorites, favoritesLoaded };
+  const isFavorite = (id: number) => {
+    return favorites.some((fav) => fav.NORAD_CAT_ID === id);
+  };
+
+  return { favorites, toggleFavorites, favoritesLoaded, isFavorite };
 };
