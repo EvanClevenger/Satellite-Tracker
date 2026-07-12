@@ -10,11 +10,11 @@ export function FavoriteButton({
 }: FavoriteButtonProps) {
   return (
     <button
-      onClick={(e) => toggleFavorites(sat)}
+      onClick={(e) => toggleFavorites(id)}
       title={"Favorite a Satellite!"}
       className="text-2xl focus:outline-none"
     >
-      {isFavorites[NORAD_CAT_ID] ? "❤️" : "🤍"}
+      {favorites[NORAD_CAT_ID] ? "❤️" : "🤍"}
     </button>
   );
 }

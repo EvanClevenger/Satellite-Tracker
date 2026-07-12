@@ -15,15 +15,19 @@ export const useFavorites = () => {
 
   // Loads data upon page loading
   useEffect(() => {
-    try {
-      const favoritesData = localStorage.getItem(STORAGE_KEY);
+    const savedFavorites = localStorage.getItem(STORAGE_KEY);
 
-      if (favoritesData) {
-        setFavorites(JSON.parse(favoritesData));
+    if (savedFavorites) {
+      const parsedFavorites = JSON.parse(savedFavorites);
+
+      if (Array.isArray(parsedFavorites)) {
+        setFavorites(parsedFavorites);
+      } else {
+        setFavorites([]);
       }
-    } finally {
-      setFavoritesLoaded(true);
     }
+
+    setFavoritesLoaded(true);
   }, []);
 
   //save favorites when favorites are changed
@@ -63,5 +67,9 @@ export const useFavorites = () => {
     setFavorites([...favorites, satellite]);
   };
 
-  return { favorites, toggleFavorites, favoritesLoaded };
+  const isFavorite = (id: number) => {
+    return favorites.some((fav) => fav.NORAD_CAT_ID === id);
+  };
+
+  return { favorites, toggleFavorites, favoritesLoaded, isFavorite };
 };
