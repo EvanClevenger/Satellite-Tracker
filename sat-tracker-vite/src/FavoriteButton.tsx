@@ -4,13 +4,14 @@ type FavoriteButtonProps = {
   toggleFavorites: (id: string) => void;
 };
 
-export function FavoriteButton({
+export default function FavoriteButton({
   favorites,
   toggleFavorites,
+  NORAD_CAT_ID,
 }: FavoriteButtonProps) {
   return (
     <button
-      onClick={(e) => toggleFavorites(id)}
+      onClick={() => toggleFavorites(NORAD_CAT_ID)}
       title={"Favorite a Satellite!"}
       className="text-2xl focus:outline-none"
     >

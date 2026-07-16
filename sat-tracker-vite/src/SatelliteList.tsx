@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./index.css";
 import { FixedSizeList as List } from "react-window"; //used for rendering large lists
-import FavoriteButton from "./FavoriteButton";
+// import FavoriteButton from "./FavoriteButton";
 
 type SatelliteListProps = {
   observerPosition: [number, number, number];
@@ -132,48 +132,33 @@ export default function SatelliteList({
           {({ index, style }) => {
             const sat = filteredSatellites[index]; // index = current rendered list view
             return (
-<<<<<<< HEAD
-              <p
-                key={index}
-                style={{
-                  ...style,
-                  padding: "5px",
-                  color: hoverStyle === index ? "red" : "",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={() => setHoverStyle(index)}
-                onMouseLeave={() => setHoverStyle(null)}
-                onClick={() => {
-                  setSelected(sat);
-                }}
-              >
-                {sat.OBJECT_NAME}
-              </p>
-=======
               <>
                 <div
-                  style={style}
-                  className="flex items-center justify-between px-2"
+                  key={index}
+                  style={{
+                    ...style,
+                    padding: "5px",
+                    color: hoverStyle === index ? "red" : "",
+                    cursor: "pointer",
+                  }}
                   onMouseEnter={() => setHoverStyle(index)}
                   onMouseLeave={() => setHoverStyle(null)}
-                  onClick={() => setSelected(sat)}>
-                  <span
-                    style={{
-                      color: hoverStyle === index ? "red" : "",
-                    }}>
-                    {sat.OBJECT_NAME}
-                  </span>
+                  onClick={() => {
+                    setSelected(sat);
+                  }}
+                >
+                  <span>{sat.OBJECT_NAME}</span>
 
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleFavorites(sat);
-                    }}>
+                    }}
+                  >
                     {isFavorite(sat.NORAD_CAT_ID) ? "❤️" : "🤍"}
                   </button>
                 </div>
               </>
->>>>>>> 03a70f48df38267ef54ef4efeb3d44e4ae95878b
             );
           }}
         </List>

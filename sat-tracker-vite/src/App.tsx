@@ -11,7 +11,8 @@ function App() {
   );
   // useState in TS note!
   // when assiging types, dont forget to add default value to the useState, looks a bit different ⬆️
-  // const { favorites, toggleFavorites, favoritesLoaded } = useFavorites();
+  const { favorites, toggleFavorites, favoritesLoaded, isFavorite } =
+    useFavorites();
 
   const [currentSatellite, setCurrentSatellite] = useState({
     info: { satname: "", satid: 0 },
