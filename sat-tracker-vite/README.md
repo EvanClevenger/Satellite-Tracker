@@ -11,10 +11,10 @@ A real-time satellite tracking web app built with React, Express and GraphQL. Th
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React, Leaflet, react-window
+- **Frontend:** React, Resium, react-window
 - **Backend:** Node.js, Express, GraphQL
 - **Data Sources:** N2YO API and Celestrak (static JSON fallback)
-- **Map Rendering:** Leaflet with custom icons
+- **Map Rendering:** Cesium for react (Resium)
 
 ## 📦 Setup Instructions
 
