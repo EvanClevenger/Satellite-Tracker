@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import "./index.css";
 import { FixedSizeList as List } from "react-window"; //used for rendering large lists
+// import FavoriteButton from "./FavoriteButton";
 
 type SatelliteListProps = {
   observerPosition: [number, number, number];
   setCurrentSat: any;
+  favorites: Satellite[];
+  toggleFavorites: (satellite: Satellite) => void;
+  isFavorite: (id: number) => boolean;
 };
 
 type Satellite = {
@@ -15,6 +19,9 @@ type Satellite = {
 export default function SatelliteList({
   observerPosition,
   setCurrentSat,
+  favorites,
+  toggleFavorites,
+  isFavorite,
 }: SatelliteListProps) {
   // when func paramater is an {}, TS needs the whole object type.
   // in destructuring, observerPosition: means "rename this prop" , not 'give it a type'.
@@ -103,6 +110,8 @@ export default function SatelliteList({
     (sat) => sat.OBJECT_NAME.toLowerCase().includes(search.toLowerCase()), // HAVE to make searched sat name and search to lower case
   );
 
+  // console.log("isFavorite:", isFavorite);
+
   return (
     <div className="w-full h-full overflow-y-auto  bg-neutral-900 rounded-xl shadow-lg text-neutral-50 cursor-pointer">
       <input
@@ -118,25 +127,38 @@ export default function SatelliteList({
           height={725} // height of scrollable container
           itemCount={filteredSatellites.length}
           itemSize={35} // height of each item
-          width={"100%"}>
+          width={"100%"}
+        >
           {({ index, style }) => {
             const sat = filteredSatellites[index]; // index = current rendered list view
             return (
-              <p
-                key={index}
-                style={{
-                  ...style,
-                  padding: "5px",
-                  color: hoverStyle === index ? "red" : "",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={() => setHoverStyle(index)}
-                onMouseLeave={() => setHoverStyle(null)}
-                onClick={() => {
-                  setSelected(sat);
-                }}>
-                {sat.OBJECT_NAME}
-              </p>
+              <>
+                <div
+                  key={index}
+                  style={{
+                    ...style,
+                    padding: "5px",
+                    color: hoverStyle === index ? "red" : "",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={() => setHoverStyle(index)}
+                  onMouseLeave={() => setHoverStyle(null)}
+                  onClick={() => {
+                    setSelected(sat);
+                  }}
+                >
+                  <span>{sat.OBJECT_NAME}</span>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorites(sat);
+                    }}
+                  >
+                    {isFavorite(sat.NORAD_CAT_ID) ? "❤️" : "🤍"}
+                  </button>
+                </div>
+              </>
             );
           }}
         </List>
