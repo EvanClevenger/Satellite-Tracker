@@ -19,7 +19,7 @@ type Satellite = {
 export default function SatelliteList({
   observerPosition,
   setCurrentSat,
-  favorites,
+  // favorites,
   toggleFavorites,
   isFavorite,
 }: SatelliteListProps) {
