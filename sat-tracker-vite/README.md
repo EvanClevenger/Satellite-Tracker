@@ -1,3 +1,5 @@
+Deployed URL: https://d1wasstkp9k65k.cloudfront.net/
+
 # 🛰️ Satellite Tracker
 
 A real-time satellite tracking web app built with React, Express and GraphQL. This project pin points satellite positions using geospatial data and offers a responsive UI for exploring orbital paths and metadata.
