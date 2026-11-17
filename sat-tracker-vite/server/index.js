@@ -33,7 +33,10 @@ app.use("/frontend", satelliteRoutes);
 //loads .env
 dotenv.config();
 const PORT = process.env.PORT || 5000;
+const LOOP_BACK = process.env.LOOP_BACK;
 
-app.listen(PORT, () => {
+app.listen(PORT, LOOP_BACK, () => {
   console.log(`Application is listening on port ${PORT}`);
 });
+
+// I added a loopback address, this is a tunnel to my Pi without communication through local wi-fi. CloudFlare tunnel connects users to my Pi via HTTPS

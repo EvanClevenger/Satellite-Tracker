@@ -110,6 +110,8 @@ export default function SatelliteList({
     (sat) => sat.OBJECT_NAME.toLowerCase().includes(search.toLowerCase()), // HAVE to make searched sat name and search to lower case
   );
 
+  const isAuthenticated = true;
+
   // console.log("isFavorite:", isFavorite);
 
   return (
@@ -152,7 +154,14 @@ export default function SatelliteList({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleFavorites(sat);
+                      // add condition to check if user is logged in
+                      {
+                        isAuthenticated
+                          ? toggleFavorites(sat)
+                          : alert(
+                              "Please login or sign in to use this feature",
+                            );
+                      }
                     }}
                   >
                     {isFavorite(sat.NORAD_CAT_ID) ? "❤️" : "🤍"}
